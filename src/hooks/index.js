@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import firebase from "../firebase";
+import { firebase } from "../firebase";
 import { collatedTasksExists } from "../helpers";
-import { all } from "q";
 
-export const useTask = selectedProject => {
+export const useTasks = selectedProject => {
   const [tasks, setTasks] = useState([]);
   const [archivedTasks, setArchivedTasks] = useState([]);
 
@@ -49,7 +48,7 @@ export const useTask = selectedProject => {
     return () => unsubscribe();
   }, [selectedProject]);
 
-  return { task, archivedTasks };
+  return { tasks, archivedTasks };
 };
 
 export const useProjects = () => {
@@ -65,13 +64,13 @@ export const useProjects = () => {
       .then(snapshot => {
         const allProjects = snapshot.docs.map(project => ({
           ...project.data(),
-          docId: projectId
+          docId: project.id
         }));
 
         if (JSON.stringify(allProjects) !== JSON.stringify(projects))
           setProjects(allProjects);
       });
-  }, [input]);
+  }, []);
 
   return { projects, setProjects };
 };
