@@ -10,10 +10,10 @@ export const Header = props => {
         </div>
         <div className="settings">
           <ul>
-            <li>
+            <li className="settings__add" data-testid="quick-add-task-action">
               <FaPlus />
             </li>
-            <li>
+            <li className="settings__darkmode" data-testid="dark-mode-action">
               <FaPizzaSlice />
             </li>
           </ul>
